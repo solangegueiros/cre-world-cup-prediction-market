@@ -34,7 +34,7 @@ export function HomePage() {
 
       {!isLoading && total === 0 && (
         <div className="empty">
-          <p className="empty-icon">⚽</p>
+          <img src="/favicon.svg" alt="" width="56" height="56" className="empty-icon" />
           <p className="empty-title">No markets yet.</p>
           <p className="empty-sub">Markets are created by the contract owner for each upcoming match.</p>
         </div>

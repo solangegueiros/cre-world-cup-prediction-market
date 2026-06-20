@@ -168,7 +168,7 @@ updateTestMode(true)   // onlyOwner — re-enable testing
    - Environment: **Browser Extension**, **Metamask** (MetaMask on Sepolia)
    - Contract: `WorldCupPredictionMarket`
    - Constructor args:
-     - `forwarderAddress`: for CRE simulationon Ethereum Sepolia, use `0x15fc6ae953e024d975e77382eeec56a9101f9f88`
+     - `forwarderAddress`: for CRE simulation on Ethereum Sepolia, use `0x15fc6ae953e024d975e77382eeec56a9101f9f88`
 6. Click **Deploy** and confirm in MetaMask
 7. Copy the deployed contract address
 
