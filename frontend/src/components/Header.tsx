@@ -12,7 +12,7 @@ export function Header() {
     <header className="header">
       <div className="header-inner">
         <Link to="/" className="brand">
-          <img src="/favicon.svg" alt="" width="26" height="26" className="brand-ball" />
+          <span>⚽</span>
           <span>World Cup Prediction Market</span>
         </Link>
 

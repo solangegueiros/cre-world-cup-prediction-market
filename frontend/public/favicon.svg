@@ -1,27 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Adidas Trionda — FIFA World Cup 2026 ball">
-  <defs>
-    <radialGradient id="ballSheen" cx="38%" cy="32%" r="78%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="68%" stop-color="#f3f6f9"/>
-      <stop offset="100%" stop-color="#dbe1e8"/>
-    </radialGradient>
-  </defs>
-
-  <!-- White ball base -->
-  <circle cx="50" cy="50" r="46" fill="url(#ballSheen)" stroke="#c2cad3" stroke-width="1.5"/>
-
-  <!-- Three swirling waves (Trionda): red, blue, green for USA / Canada / Mexico -->
-  <g>
-    <path d="M50 50 C44 28 58 10 78 14 C72 32 64 44 50 50 Z" fill="#E4002B"/>
-    <g transform="rotate(120 50 50)">
-      <path d="M50 50 C44 28 58 10 78 14 C72 32 64 44 50 50 Z" fill="#0061FF"/>
-    </g>
-    <g transform="rotate(240 50 50)">
-      <path d="M50 50 C44 28 58 10 78 14 C72 32 64 44 50 50 Z" fill="#00A35A"/>
-    </g>
-  </g>
-
-  <!-- Center hub + gold accent ring -->
-  <circle cx="50" cy="50" r="7.5" fill="#1d2733"/>
-  <circle cx="50" cy="50" r="7.5" fill="none" stroke="#F2B705" stroke-width="1.6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <text x="50" y="54" font-size="80" text-anchor="middle" dominant-baseline="central">⚽</text>
 </svg>
