@@ -34,7 +34,7 @@ Winners call claimPrediction() — losers get nothing, cancelled matches get a r
 
 ## Scaffold CRE
 
-The file `CRE-world-cup-prediction-market.json` can be imported at [Scaffold CRE](https://cre.solange.dev/) to visualize and generate the workflow graph.
+The file `CRE-World_Cup_Prediction_Market.json` can be imported at [Scaffold CRE](https://cre.solange.dev/) to visualize and generate the workflow graph.
 
 ---
 
@@ -90,7 +90,7 @@ world-cup-prediction-market/
 │           └── contract.ts            ABI + addresses
 ├── project.yaml                       CRE project config
 ├── secrets.yaml                       CRE secrets mapping
-└── CRE-world-cup-prediction-market.json  Scaffold CRE import file
+└── CRE-World_Cup_Prediction_Market.json  Scaffold CRE import file
 ```
 
 ---
