@@ -6,7 +6,8 @@ function shortAddress(addr: string) {
 }
 
 export function Header() {
-  const { address, isConnected, connect, disconnect } = useWallet();
+  const { address, isConnected, isWrongNetwork, connect, disconnect, switchNetwork } =
+    useWallet();
 
   return (
     <header className="header">
@@ -18,6 +19,11 @@ export function Header() {
 
         {isConnected ? (
           <div className="wallet">
+            {isWrongNetwork && (
+              <button onClick={switchNetwork} className="btn btn-warning btn-sm">
+                Wrong network — Switch to Sepolia
+              </button>
+            )}
             <span className="wallet-addr">{shortAddress(address!)}</span>
             <button onClick={disconnect} className="link-btn">
               Disconnect
