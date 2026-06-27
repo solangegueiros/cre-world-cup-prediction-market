@@ -9,8 +9,8 @@ staging-settings:
 
 production-settings:
   rpcs:
-    - chain-name: ethereum-testnet-sepolia
-      url: https://ethereum-sepolia-rpc.publicnode.com
+    - chain-name: ethereum-mainnet
+      url: https://ethereum-rpc.publicnode.com
 
 # The MockKeystoneForwarder contract, that we will use for simulations, 
 # on Ethereum Sepolia is located at: 
