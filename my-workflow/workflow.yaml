@@ -1,6 +1,7 @@
 staging-settings:
   user-workflow:
     workflow-name: "my-workflow-staging"
+    deployment-registry: "private"
   workflow-artifacts:
     workflow-path: "./main.ts"
     config-path: "./config.staging.json"
@@ -9,6 +10,7 @@ staging-settings:
 production-settings:
   user-workflow:
     workflow-name: "my-workflow-production"
+    deployment-registry: "onchain:ethereum-mainnet"
   workflow-artifacts:
     workflow-path: "./main.ts"
     config-path: "./config.production.json"
