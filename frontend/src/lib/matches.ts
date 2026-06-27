@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 export const UPCOMING_MATCHES_LIMIT = 5;
 
 /** How many recent finished matches to list (handy for settlement testing). */
-export const RECENT_MATCHES_LIMIT = 3;
+export const RECENT_MATCHES_LIMIT = 5;
 
 /** football-data.org competition code (WC = FIFA World Cup). */
 export const COMPETITION_CODE = "WC";

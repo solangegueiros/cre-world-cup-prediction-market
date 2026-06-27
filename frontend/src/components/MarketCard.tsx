@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { formatEther } from "viem";
-import { useRead } from "@/lib/hooks";
-import { CONTRACT_ADDRESS, MARKET_ABI, STATUS_LABEL, STATUS_COLOR, OUTCOME_LABEL } from "@/lib/contract";
+import type { MarketWithId } from "@/lib/hooks";
+import { STATUS_LABEL, STATUS_COLOR, OUTCOME_LABEL } from "@/lib/contract";
+
+function formatKickoff(kickoff: bigint) {
+  return new Date(Number(kickoff) * 1000).toLocaleString(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  });
+}
 
 function PoolBar({ totals, team1, team2 }: { totals: readonly bigint[]; team1: string; team2: string }) {
   const values = totals.map(Number);
@@ -24,39 +31,14 @@ function PoolBar({ totals, team1, team2 }: { totals: readonly bigint[]; team1: s
   );
 }
 
-export function MarketCard({ marketId }: { marketId: bigint }) {
-  const { data: market, isLoading } = useRead<{
-    team1: string; team2: string; status: number; outcome: number;
-    settledAfter: bigint; predTotals: readonly bigint[];
-  }>({
-    address: CONTRACT_ADDRESS,
-    abi: MARKET_ABI,
-    functionName: "getMarket",
-    args: [marketId],
-  }, [marketId.toString()]);
-
-  const { data: testMode } = useRead<boolean>({
-    address: CONTRACT_ADDRESS,
-    abi: MARKET_ABI,
-    functionName: "testMode",
-    args: [],
-  }, []);
-
-  if (isLoading) return (
-    <div className="card skeleton">
-      <div className="skel-bar skel-h6 skel-w34 mb-3" />
-      <div className="skel-bar skel-h4 skel-w12" />
-    </div>
-  );
-  if (!market) return null;
-
-  const { team1, team2, status, outcome, settledAfter, predTotals } = market;
+export function MarketCard({ market, testMode }: { market: MarketWithId; testMode?: boolean }) {
+  const { marketId, team1, team2, kickoff, status, outcome, settledAfter, predTotals } = market;
   const now = BigInt(Math.floor(Date.now() / 1000));
   const canSettle = status === 0 && (now >= settledAfter || !!testMode);
   const totalPool = predTotals[0] + predTotals[1] + predTotals[2];
 
   return (
-    <Link to={`/market/${marketId.toString()}`} className="card-link">
+    <Link to={`/market/${marketId}`} className="card-link">
       <div className="card card-hover">
         <div className="card-head">
           <h3 className="match-title">
@@ -66,6 +48,8 @@ export function MarketCard({ marketId }: { marketId: bigint }) {
             {canSettle ? "Ready to Settle" : STATUS_LABEL[status]}
           </span>
         </div>
+
+        <p className="kickoff-line muted-sm">🗓️ {formatKickoff(kickoff)}</p>
 
         {status === 2 && (
           <p className="result-line">

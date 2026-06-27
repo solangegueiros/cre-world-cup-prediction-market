@@ -85,6 +85,82 @@ export function useHasMarkets(ids: number[]) {
   return { map, isLoading, refetch: fetch };
 }
 
+// ─── Markets (multicall + sort) ─────────────────────────────────────────────
+
+export interface MarketData {
+  externalMatchId: bigint;
+  team1: string;
+  team2: string;
+  kickoff: bigint;
+  settledAfter: bigint;
+  status: number; // 0 = Open, 1 = Pending CRE, 2 = Settled
+  outcome: number;
+  predTotals: readonly bigint[];
+  predCounts: readonly bigint[];
+}
+
+export interface MarketWithId extends MarketData {
+  marketId: number;
+}
+
+/**
+ * Reads every market (ids 0..total-1) in a single multicall and returns them
+ * sorted for the home grid:
+ *   1. by status — active markets first (Open, then Pending CRE), Settled last
+ *   2. then by kickoff time, soonest first
+ */
+export function useMarkets(total: number) {
+  const [markets, setMarkets] = useState<MarketWithId[]>([]);
+  const [isLoading, setIsLoading] = useState(total > 0);
+
+  const fetch = useCallback(async () => {
+    if (total === 0) { setMarkets([]); setIsLoading(false); return; }
+    setIsLoading(true);
+    try {
+      const results = await publicClient.multicall({
+        allowFailure: true,
+        contracts: Array.from({ length: total }, (_, i) => ({
+          address: CONTRACT_ADDRESS,
+          abi: MARKET_ABI as Abi,
+          functionName: "getMarket",
+          args: [BigInt(i)],
+        })),
+      });
+      const list: MarketWithId[] = [];
+      results.forEach((r, i) => {
+        if (r.status === "success" && r.result) {
+          const m = r.result as unknown as MarketData;
+          list.push({
+            ...m,
+            marketId: i,
+            status: Number(m.status),
+            outcome: Number(m.outcome),
+          });
+        }
+      });
+      list.sort((a, b) => {
+        // Open/Live (0, 1) first, Settled (2) last.
+        if (a.status !== b.status) return a.status - b.status;
+        // Within a status group, sort by kickoff time:
+        //  - Settled (2): newest first  →  kickoff descending
+        //  - Active (0, 1): soonest first  →  kickoff ascending
+        if (a.kickoff === b.kickoff) return 0;
+        const ascending = a.kickoff < b.kickoff ? -1 : 1;
+        return a.status === 2 ? -ascending : ascending;
+      });
+      setMarkets(list);
+    } catch {
+      setMarkets([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [total]);
+
+  useEffect(() => { fetch(); }, [fetch]);
+
+  return { markets, isLoading, refetch: fetch };
+}
+
 // ─── Balance ─────────────────────────────────────────────────────────────────
 
 export function useBalance(address: `0x${string}` | null, deps: unknown[] = []) {

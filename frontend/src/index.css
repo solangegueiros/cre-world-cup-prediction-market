@@ -179,6 +179,7 @@ button { font-family: inherit; cursor: pointer; }
 .muted-sm { font-size: 0.75rem; color: var(--gray-500); margin-top: 0.75rem; }
 .muted-xs { font-size: 0.75rem; color: var(--gray-500); }
 .label-xs { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 0.25rem; }
+.kickoff-line { margin-top: 0.5rem; }
 
 /* ─── Pool bar ───────────────────────────────────────────── */
 .poolbar { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.25rem; }
