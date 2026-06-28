@@ -1,6 +1,32 @@
-export const CONTRACT_ADDRESS = (
+const STORAGE_KEY = "wc.contractAddress";
+
+const DEFAULT_ADDRESS = (
   import.meta.env.CONTRACT_ADDRESS ?? "0x0000000000000000000000000000000000000000"
 ) as `0x${string}`;
+
+function readStored(): `0x${string}` | null {
+  try {
+    const v = localStorage.getItem(STORAGE_KEY);
+    return v && /^0x[a-fA-F0-9]{40}$/.test(v) ? (v as `0x${string}`) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Active contract address. A local override set from the UI (stored in
+ * localStorage) wins over the build-time .env value. Read once at module load;
+ * the UI reloads the page after changing it so every read picks up the new one.
+ */
+export const CONTRACT_ADDRESS = (readStored() ?? DEFAULT_ADDRESS) as `0x${string}`;
+
+export function setContractAddress(addr: string) {
+  localStorage.setItem(STORAGE_KEY, addr);
+}
+
+export function resetContractAddress() {
+  localStorage.removeItem(STORAGE_KEY);
+}
 
 export const MARKET_ABI = [
   {

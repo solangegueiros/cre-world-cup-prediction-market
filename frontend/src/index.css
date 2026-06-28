@@ -102,9 +102,59 @@ button { font-family: inherit; cursor: pointer; }
 .btn-secondary:hover:not(:disabled) { background-color: var(--gray-500); }
 
 /* ─── Page head ──────────────────────────────────────────── */
-.page-head { margin-bottom: 2rem; }
+.page-head {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.page-head-text { min-width: 0; }
 .page-title { font-size: 1.875rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; }
 .page-subtitle { color: var(--gray-400); }
+
+/* ─── Contract address box ───────────────────────────────── */
+.contract-box {
+  border: 1px solid var(--border);
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  max-width: 100%;
+}
+.contract-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.contract-row .label { font-size: 0.8rem; color: var(--gray-400); white-space: nowrap; }
+.address-inline { display: inline-flex; align-items: center; gap: 0.5rem; }
+.address-inline code {
+  color: var(--gray-300);
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+.btn-copy {
+  background-color: var(--border);
+  color: var(--text);
+  border: none;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+.btn-copy:hover { background-color: var(--emerald-500); color: #000; }
+.edit-address { display: flex; align-items: center; gap: 0.5rem; min-width: 0; flex-wrap: wrap; }
+.edit-address input {
+  flex: 1;
+  min-width: 230px;
+  padding: 0.3rem 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--emerald-500);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+.contract-box .error { color: var(--red-400); font-size: 0.8rem; margin-top: 0.4rem; }
 
 /* ─── Grid ───────────────────────────────────────────────── */
 .grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }

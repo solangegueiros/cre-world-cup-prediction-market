@@ -3,6 +3,7 @@ import { useWallet } from "@/lib/wallet";
 import { CONTRACT_ADDRESS, MARKET_ABI } from "@/lib/contract";
 import { MarketCard } from "@/components/MarketCard";
 import { MatchMarkets } from "@/components/MatchMarkets";
+import { ContractAddress } from "@/components/ContractAddress";
 
 export function HomePage() {
   const { isConnected } = useWallet();
@@ -33,10 +34,13 @@ export function HomePage() {
   return (
     <div>
       <div className="page-head">
-        <h1 className="page-title">Markets</h1>
-        <p className="page-subtitle">
-          Predict FIFA World Cup match outcomes (non official and study only). Settlements resolved on-chain by Chainlink CRE.
-        </p>
+        <div className="page-head-text">
+          <h1 className="page-title">Markets</h1>
+          <p className="page-subtitle">
+            Predict FIFA World Cup match outcomes (non official and study only). Settlements resolved on-chain by Chainlink CRE.
+          </p>
+        </div>
+        <ContractAddress />
       </div>
 
       {showSkeletons && (
